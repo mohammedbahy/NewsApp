@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "853089273351",
+    "project_id": "news-app-84b56",
+    "storage_bucket": "news-app-84b56.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853089273351:android:2df1b12c62603ed9144ca2",
+        "android_client_info": {
+          "package_name": "com.bahy.newsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO5--IFilD0NzUPK7lmm9MYcdkyOVRAMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

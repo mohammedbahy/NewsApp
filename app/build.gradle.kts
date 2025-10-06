@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -13,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.bahy.newsapp"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -57,4 +58,7 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:5.0.5")
     //Swipe to Refresh
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
+    implementation("com.google.firebase:firebase-auth")
 }
