@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
-
     private fun showNews(articles: ArrayList<Article>){
         val adapter = NewsAdapter(this, articles)
         binding.newsList.adapter=adapter
