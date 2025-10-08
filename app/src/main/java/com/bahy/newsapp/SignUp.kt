@@ -82,11 +82,11 @@ class SignUp : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Check your email", Toast.LENGTH_SHORT).show()
                     binding.loadingPrograss.isVisible = false
-                    // Login Class
-                    /*binding.haveaccountTv.setOnClickListener {
-                        startActivity(Intent(this, ::class.java))
+
+                    binding.haveaccountTv.setOnClickListener {
+                        startActivity(Intent(this, SignIn ::class.java))
                         finish()
-                    }*/
+                    }
                 }
             }
 
