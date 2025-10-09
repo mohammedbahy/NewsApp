@@ -32,11 +32,10 @@ class SignUp : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        // Login Class
-        /*binding.haveaccountTv.setOnClickListener {
-            startActivity(Intent(this, ::class.java))
+        binding.haveaccountTv.setOnClickListener {
+            startActivity(Intent(this, SignIn ::class.java))
             finish()
-        }*/
+        }
 
         binding.signUpBtn.setOnClickListener {
             val email = binding.emailEt.text.toString()
