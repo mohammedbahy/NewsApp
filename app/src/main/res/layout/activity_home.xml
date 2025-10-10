@@ -1,10 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Home">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp" />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- GENERAL -->
+        <Button
+            android:id="@+id/btnGeneral"
+            style="@style/CategoryButton"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/general" />
+
+        <!-- Row 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btnBusiness"
+                style="@style/CategoryButton"
+                android:text="@string/business"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnEntertainment"
+                style="@style/CategoryButton"
+                android:text="@string/entertainment"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <!-- Row 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btnHealth"
+                style="@style/CategoryButton"
+                android:text="@string/health"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnScience"
+                style="@style/CategoryButton"
+                android:text="@string/science"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <!-- Row 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btnSports"
+                style="@style/CategoryButton"
+                android:text="@string/sports"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnTechnology"
+                style="@style/CategoryButton"
+                android:text="@string/technology"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,25 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- عند الضغط -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#5078F2"
+                android:endColor="#3253B8"
+                android:angle="270" />
+            <corners android:radius="18dp" />
+            <stroke android:width="2dp" android:color="#1C1C1C" />
+        </shape>
+    </item>
+
+    <!-- الشكل العادي -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#6EA8FF"
+                android:endColor="#2E74FF"
+                android:angle="270" />
+            <corners android:radius="18dp" />
+            <stroke android:width="2dp" android:color="#000000" />
+        </shape>
+    </item>
+</selector>

@@ -61,4 +61,6 @@ dependencies {
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
     implementation("com.google.firebase:firebase-auth")
+    //Material Components
+    implementation("com.google.android.material:material:1.12.0")
 }
