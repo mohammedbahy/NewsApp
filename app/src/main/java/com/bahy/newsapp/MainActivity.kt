@@ -18,7 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.zip.Inflater
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,14 +25,18 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        loadNews()
+
+        val country = intent.getStringExtra("country")
+        val category = intent.getStringExtra("category")
+
+       loadNews(country!!, category!!)
 
         binding.swipeRefresh.setOnRefreshListener {
-            loadNews()
+            loadNews(country, category)
         }
     }
 
-    private fun loadNews(){
+    private fun loadNews(country: String, category: String){
         val retrofit = Retrofit
             .Builder()
             .baseUrl("https://newsapi.org")
@@ -41,17 +44,16 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         val c= retrofit.create(NewsCallable::class.java)
-        c.getNews().enqueue(object : retrofit2.Callback<News>{
+        c.getNews(country, category).enqueue(object : retrofit2.Callback<News>{
             override fun onResponse(call: Call<News?>, response: Response<News?>) {
                 val news = response.body()
-                val articals = news?.articles!!
-                articals.removeAll{
+                val articles = news?.articles!!
+                articles.removeAll{
                     it.title == "[Removed]"
                 }
 
-
-                //Log.d("trace","Articles : $articals")
-                showNews(articals)
+                //Log.d("trace","Articles : $articles")
+                showNews(articles)
                 binding.progress.isVisible = false
                 binding.swipeRefresh.isRefreshing = false
 

@@ -6,34 +6,68 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.google.android.material.button.MaterialButton
+import com.bahy.newsapp.databinding.ActivityHomeBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 class Home : AppCompatActivity() {
+
+    lateinit var binding: ActivityHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        val country = "us"
 
-        val categories = mapOf(
-            R.id.btnGeneral to "general",
-            R.id.btnBusiness to "business",
-            R.id.btnEntertainment to "entertainment",
-            R.id.btnHealth to "health",
-            R.id.btnScience to "science",
-            R.id.btnSports to "sports",
-            R.id.btnTechnology to "technology"
-        )
-
-        categories.forEach { (id, name) ->
-            findViewById<MaterialButton>(id).setOnClickListener {
-                //  val intent = Intent(this, NewsListActivity::class.java)
-                //  intent.putExtra("category", name)
-                startActivity(intent)
-            }
+        binding.btnGeneral.setOnClickListener {
+           val intent= Intent(this, MainActivity::class.java)
+            intent.putExtra("category", "general")
+            intent.putExtra("country", country)
+            startActivity(intent)
         }
+        binding.btnBusiness.setOnClickListener {
+            val intent= Intent(this, MainActivity::class.java)
+            intent.putExtra("category", "business")
+            intent.putExtra("country", country)
+            startActivity(intent)
+
+        }
+        binding.btnEntertainment.setOnClickListener {
+            val intent= Intent(this, MainActivity::class.java)
+            intent.putExtra("category", "entertainment")
+            intent.putExtra("country", country)
+            startActivity(intent)
+        }
+        binding.btnHealth.setOnClickListener {
+            val intent= Intent(this, MainActivity::class.java)
+            intent.putExtra("category", "health")
+            intent.putExtra("country", country)
+            startActivity(intent)
+        }
+        binding.btnScience.setOnClickListener {
+            val intent= Intent(this, MainActivity::class.java)
+            intent.putExtra("category", "science")
+            intent.putExtra("country", country)
+            startActivity(intent)
+        }
+        binding.btnSports.setOnClickListener {
+            val intent= Intent(this, MainActivity::class.java)
+            intent.putExtra("category", "sports")
+            intent.putExtra("country", country)
+            startActivity(intent)
+        }
+        binding.btnTechnology.setOnClickListener {
+            val intent= Intent(this, MainActivity::class.java)
+            intent.putExtra("category", "technology")
+            intent.putExtra("country", country)
+            startActivity(intent)
+        }
+
     }
 
     @Override
@@ -44,13 +78,14 @@ class Home : AppCompatActivity() {
 
     @Override
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId.equals(R.id.settings)){
+        if(item.itemId == R.id.settings){
             startActivity(Intent(this, Settings::class.java))
         }
-        else if(item.itemId.equals(R.id.favorites)){
+        else if(item.itemId == R.id.favorites){
             startActivity(Intent(this, Favorites::class.java))
         }
-        else if(item.itemId.equals(R.id.sign_out)){
+        else if(item.itemId == R.id.sign_out){
+            Firebase.auth.signOut()
             startActivity(Intent(this, SignIn::class.java))
         }
 
