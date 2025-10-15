@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter(this, arrayListOf()) // إنشاء Adapter بقائمة فارغة
+        newsAdapter = NewsAdapter(this, arrayListOf())
         binding.newsList.adapter = newsAdapter
     }
 
@@ -58,17 +58,6 @@ class MainActivity : AppCompatActivity() {
         val c= retrofit.create(NewsCallable::class.java)
         c.getNews(country, category).enqueue(object : retrofit2.Callback<News>{
             override fun onResponse(call: Call<News>, response: Response<News>) {
-//                val news = response.body()
-//                val articles = news?.articles!!
-//                articles.removeAll{
-//                    it.title == "[Removed]"
-//                }
-//
-//                //Log.d("trace","Articles : $articles")
-//                showNews(articles)
-//                binding.progress.isVisible = false
-//                binding.swipeRefresh.isRefreshing = false
-
                 try {
                     if (response.isSuccessful && response.body() != null) {
                         val articles = response.body()!!.articles.toMutableList()
@@ -77,10 +66,9 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         Log.e("MainActivity", "API Error: Code ${response.code()}, Message: ${response.message()}")
                         Toast.makeText(this@MainActivity, "Failed to load news: ${response.code()}", Toast.LENGTH_LONG).show()
-                        showNews(arrayListOf()) // عرض قائمة فارغة لتنظيف الشاشة في حالة الخطأ
+                        showNews(arrayListOf())
                     }
                 } finally {
-                    // هذا الكود سيتم تنفيذه دائماً بعد انتهاء معالجة الاستجابة
                     binding.progress.isVisible = false
                     binding.swipeRefresh.isRefreshing = false
                 }
@@ -88,8 +76,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<News>, t: Throwable) {
-//                Log.d("trace","Error : ${t.message}")
-//                binding.progress.isVisible=false
                 binding.progress.isVisible = false
                 binding.swipeRefresh.isRefreshing = false
                 Log.e("MainActivity", "Network Failure: ${t.message}", t)
@@ -99,8 +85,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
     private fun showNews(articles: ArrayList<Article>){
-//        val adapter = NewsAdapter(this, articles)
-//        binding.newsList.adapter=adapter
         newsAdapter.updateData(articles)
     }
 }

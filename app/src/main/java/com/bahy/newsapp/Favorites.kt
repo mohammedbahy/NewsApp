@@ -71,7 +71,6 @@ class Favorites : AppCompatActivity() {
                     articlesList.add(article)
                 }
 
-                // تحديث الـ Adapter بالبيانات التي تم جلبها
                 favoritesAdapter.updateData(articlesList)
 
                 binding.progress.isVisible = false
