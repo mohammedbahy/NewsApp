@@ -2,6 +2,7 @@ package com.bahy.newsapp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,6 +20,7 @@ import java.util.zip.Inflater
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var newsAdapter: NewsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,49 +28,79 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val country = intent.getStringExtra("country")
-        val category = intent.getStringExtra("category")
+        setupRecyclerView()
 
-       loadNews(country!!, category!!)
+        val country = intent.getStringExtra("country")?:"us"
+        val category = intent.getStringExtra("category")?:"general"
+
+       loadNews(country, category)
 
         binding.swipeRefresh.setOnRefreshListener {
             loadNews(country, category)
         }
     }
 
+    private fun setupRecyclerView() {
+        newsAdapter = NewsAdapter(this, arrayListOf()) // إنشاء Adapter بقائمة فارغة
+        binding.newsList.adapter = newsAdapter
+    }
+
     private fun loadNews(country: String, category: String){
+        binding.progress.isVisible = true
+        binding.swipeRefresh.isRefreshing = true
+
         val retrofit = Retrofit
             .Builder()
-            .baseUrl("https://newsapi.org")
+            .baseUrl("https://newsapi.org/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val c= retrofit.create(NewsCallable::class.java)
         c.getNews(country, category).enqueue(object : retrofit2.Callback<News>{
-            override fun onResponse(call: Call<News?>, response: Response<News?>) {
-                val news = response.body()
-                val articles = news?.articles!!
-                articles.removeAll{
-                    it.title == "[Removed]"
-                }
+            override fun onResponse(call: Call<News>, response: Response<News>) {
+//                val news = response.body()
+//                val articles = news?.articles!!
+//                articles.removeAll{
+//                    it.title == "[Removed]"
+//                }
+//
+//                //Log.d("trace","Articles : $articles")
+//                showNews(articles)
+//                binding.progress.isVisible = false
+//                binding.swipeRefresh.isRefreshing = false
 
-                //Log.d("trace","Articles : $articles")
-                showNews(articles)
-                binding.progress.isVisible = false
-                binding.swipeRefresh.isRefreshing = false
+                try {
+                    if (response.isSuccessful && response.body() != null) {
+                        val articles = response.body()!!.articles.toMutableList()
+                        articles.removeAll { it.title == "[Removed]" }
+                        showNews(ArrayList(articles))
+                    } else {
+                        Log.e("MainActivity", "API Error: Code ${response.code()}, Message: ${response.message()}")
+                        Toast.makeText(this@MainActivity, "Failed to load news: ${response.code()}", Toast.LENGTH_LONG).show()
+                        showNews(arrayListOf()) // عرض قائمة فارغة لتنظيف الشاشة في حالة الخطأ
+                    }
+                } finally {
+                    // هذا الكود سيتم تنفيذه دائماً بعد انتهاء معالجة الاستجابة
+                    binding.progress.isVisible = false
+                    binding.swipeRefresh.isRefreshing = false
+                }
 
             }
 
-            override fun onFailure(call: Call<News?>, t: Throwable) {
-                Log.d("trace","Error : ${t.message}")
-                binding.progress.isVisible=false
+            override fun onFailure(call: Call<News>, t: Throwable) {
+//                Log.d("trace","Error : ${t.message}")
+//                binding.progress.isVisible=false
+                binding.progress.isVisible = false
+                binding.swipeRefresh.isRefreshing = false
+                Log.e("MainActivity", "Network Failure: ${t.message}", t)
+                Toast.makeText(this@MainActivity, "Network Error. Please check your connection.", Toast.LENGTH_LONG).show()
             }
 
         })
     }
     private fun showNews(articles: ArrayList<Article>){
-        val adapter = NewsAdapter(this, articles)
-        binding.newsList.adapter=adapter
+//        val adapter = NewsAdapter(this, articles)
+//        binding.newsList.adapter=adapter
+        newsAdapter.updateData(articles)
     }
 }
-

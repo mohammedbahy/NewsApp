@@ -51,16 +51,16 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     //Retrofit
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
     //Gson Converter
-    implementation ("com.squareup.retrofit2:converter-gson:3.0.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
     //Glide
-    implementation ("com.github.bumptech.glide:glide:5.0.5")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
     //Swipe to Refresh
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
     implementation("com.google.firebase:firebase-auth")
-    //Material Components
-    implementation("com.google.android.material:material:1.12.0")
+    implementation("com.google.firebase:firebase-firestore")
+    // Material Components is already included via libs.material above
 }

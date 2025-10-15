@@ -33,23 +33,37 @@
             />
 
         <RadioButton
+            android:id="@+id/rb_Germany"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/germany"
             />
 
         <RadioButton
+            android:id="@+id/rb_France"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/france"
             />
 
         <RadioButton
+            android:id="@+id/rb_Egypt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/egypt"
             />
 
     </RadioGroup>
+
+    <Button
+        android:id="@+id/save_btn"
+        android:text="Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/radio_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

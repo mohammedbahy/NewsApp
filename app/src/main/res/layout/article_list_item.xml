@@ -18,8 +18,22 @@
             android:id="@+id/article_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="TODO"
             android:scaleType="centerCrop"
             tools:src="@tools:sample/backgrounds/scenic" />
+
+        <ImageView
+            android:id="@+id/favorite_icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_favorites_border"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/share"
+            android:contentDescription="Add to favorites"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true" />
 
         <View
             android:id="@+id/shadow_view"
@@ -27,7 +41,7 @@
             android:layout_height="64dp"
             android:alpha="0.4"
             android:background="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
             android:id="@+id/article_text"
@@ -59,6 +73,7 @@
             android:src="@drawable/ic_share"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

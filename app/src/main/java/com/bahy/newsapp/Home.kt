@@ -1,5 +1,6 @@
 package com.bahy.newsapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -22,7 +23,9 @@ class Home : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val country = "us"
+        val sharedPref = getSharedPreferences("NewsAppPrefs", Context.MODE_PRIVATE)
+        val country = sharedPref.getString("SELECTED_COUNTRY", "us") ?: "us"
+
 
         binding.btnGeneral.setOnClickListener {
            val intent= Intent(this, MainActivity::class.java)
@@ -87,6 +90,7 @@ class Home : AppCompatActivity() {
         else if(item.itemId == R.id.sign_out){
             Firebase.auth.signOut()
             startActivity(Intent(this, SignIn::class.java))
+            finish()
         }
 
         return super.onOptionsItemSelected(item)

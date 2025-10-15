@@ -67,6 +67,7 @@ class SignUp : AppCompatActivity() {
                     verifyEmail()
 
                 } else {
+                    binding.loadingPrograss.isVisible = false
                     Toast.makeText(this, task.exception?.message, Toast.LENGTH_SHORT).show()
 
                 }
@@ -75,8 +76,13 @@ class SignUp : AppCompatActivity() {
 
     private fun verifyEmail() {
         val user = Firebase.auth.currentUser
+        if (user == null) {
+            binding.loadingPrograss.isVisible = false
+            Toast.makeText(this, "User not available", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-        user!!.sendEmailVerification()
+        user.sendEmailVerification()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Check your email", Toast.LENGTH_SHORT).show()
@@ -86,6 +92,9 @@ class SignUp : AppCompatActivity() {
                         startActivity(Intent(this, SignIn ::class.java))
                         finish()
                     }
+                } else {
+                    binding.loadingPrograss.isVisible = false
+                    Toast.makeText(this, task.exception?.message ?: "Failed to send verification", Toast.LENGTH_SHORT).show()
                 }
             }
 
